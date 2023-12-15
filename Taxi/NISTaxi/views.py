@@ -31,8 +31,11 @@ def login_req(request: HttpRequest):
         return HttpResponseBadRequest()
     
     a = json.loads(request.body)
-    print(a["phone"], a["taxi_licence"])
+    
+    if User.objects.filter(phone=a["phone"], taxilicence=a["taxi_licence"]).exists():
+        csrf_token = get_token(request)
+        return HttpResponse(csrf_token)
+    else:
+        return HttpResponseForbidden()
 
-    csrf_token = get_token(request)
-
-    return HttpResponse(csrf_token)
+    
