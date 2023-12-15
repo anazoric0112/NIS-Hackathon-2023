@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'NISTaxi.apps.NistaxiConfig'
+    'NISTaxi.apps.NistaxiConfig',
+    'corsheaders',
 ]
+
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'Taxi.urls'
@@ -80,9 +86,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nistaxikartica',
         'USER': 'root',
-        'PASSWORD': '54321trewq',
+        'PASSWORD': '123',
         'HOST':'localhost',
-        'PORT':'3306'
+        'PORT':'3308'
     }
 }
 
