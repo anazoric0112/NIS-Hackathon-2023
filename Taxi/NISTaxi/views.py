@@ -68,14 +68,12 @@ def login_req(request: HttpRequest):
     csrf_token = get_token(request)
     ret = json.dumps({
         "csrftoken" : csrf_token,
-        "card": {
-            "number": card.number,
-            "taxilicence": card.taxilicence.taxilicence,
-            "discount": card.discount,
-            "points": card.points,
-            "balance": card.balance,
-            "qrcode": card.qrcode,
-        },
+        "number": card.number,
+        "taxilicence": card.taxilicence.taxilicence,
+        "discount": card.discount,
+        "points": card.points,
+        "balance": card.balance,
+        "qrcode": card.qrcode,
     })
     return HttpResponse(ret)
 
