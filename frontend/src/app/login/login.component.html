@@ -1,13 +1,22 @@
 
-<div class="center-content">
-    <input type="phone" placeholder=" Phone number" [(ngModel)]="phone" class="input-field">
-    <br><br>
-    <input type="text" placeholder=" Licence number" [(ngModel)]="licence" class="input-field">
-    <br><br>
-    <button type="submit" (click)="login()" class="mybutton">Register</button>
-    <br>
-    <br>
-    <div *ngIf="msg.length>0" class="error">
-        {{msg}}
-    </div>
+
+<br>
+<h1 >Register</h1>
+<br><br>
+Phone number:
+<br><br>
+<input type="phone" placeholder=" +381 XX XXXXXXX" [(ngModel)]="phone" class="input-field">
+<br><br>
+Licence number:
+<Br><Br>
+<input type="text" placeholder=" XXXXX" [(ngModel)]="licence" class="input-field">
+<br><br><br>
+<button type="submit" (click)="login()" class="mybutton">Register</button>
+<br>
+<br>
+<div *ngIf="msg.length>0" class="error">
+    {{msg}}
+</div>
+<div *ngIf="msg2.length>0" class="error">
+    {{msg2}}
 </div>

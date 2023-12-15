@@ -18,18 +18,25 @@ export class LoginComponent {
   msg2: string = "";
 
   login() {
-    let regexPhone = /^\+\d{3} ?\d{8,9}$/;
-    let regexLicence = /^\d{5}$/
-    if (!regexPhone.test(this.phone)) {
-      this.msg = "Telefon nije u ispravnom formatu.";
+    // let regexPhone = /^\+\d{3} ?\d{8,9}$/;
+    let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;
+    let regexLicence = /^[0-9]{5}$/
+    if (this.phone.length == 0) {
+      this.msg = "Field phone missing";
     }
-    if (!regexLicence.test(this.licence)) {
-      this.msg2 = "Licenca nije u ispravnom formatu.";
+    else if (!regexPhone.test(this.phone)) {
+      this.msg = "Invalid phone format";
     }
+    else this.msg = "";
+    if (this.licence.length == 0) {
+      this.msg2 = "Field licence missing";
+    }
+    else if (!regexLicence.test(this.licence)) {
+      this.msg2 = "Invalid licence format";
+    }
+    else this.msg2 = ""
     if (this.msg.length > 0 || this.msg2.length > 0) return;
 
-    this.msg = "";
-    this.msg2 = "";
     this.service.login(this.phone, this.licence).subscribe(
       data => {
         if (data == null) return;
@@ -43,6 +50,8 @@ export class LoginComponent {
         card.points = data.points;
         card.qrcode = data.qrcode;
         localStorage.setItem("card", JSON.stringify(card));
+
+        this.router.navigate(['home']);
       }
     )
   }
