@@ -1,0 +1,52 @@
+:root{
+    --yellow1: rgb(255, 232, 101);
+}
+
+.center-content{
+    border-radius: 3px;
+    margin-top: 5%;
+    padding: 5%;
+    margin-left: 25%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(92, 92, 92);
+    width: fit-content;
+}
+
+.input-field{
+    border-radius: 3px;
+    background-color: rgb(255, 232, 101);
+    color:rgb(112, 97, 9);
+    padding: 2px;   
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0
+
+}
+.input-field::placeholder{
+    color: rgb(196, 172, 40);
+}
+
+.input-field:active{
+    border: 0
+}
+
+.error{
+    color: rgb(255, 232, 101)
+}
+
+.mybutton{
+    border-radius: 3px;
+    background-color: rgb(196, 172, 40);
+    color:rgb(112, 97, 9);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;   
+    border: 0
+}
+.mybutton:active{
+    background-color: rgb(255, 232, 101);
+    border: 0
+}

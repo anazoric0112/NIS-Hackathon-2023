@@ -1,0 +1,13 @@
+
+<div class="center-content">
+    <input type="phone" placeholder=" Phone number" [(ngModel)]="phone" class="input-field">
+    <br><br>
+    <input type="text" placeholder=" Licence number" [(ngModel)]="licence" class="input-field">
+    <br><br>
+    <button type="submit" (click)="login()" class="mybutton">Register</button>
+    <br>
+    <br>
+    <div *ngIf="msg.length>0" class="error">
+        {{msg}}
+    </div>
+</div>
