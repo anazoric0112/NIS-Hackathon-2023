@@ -1,9 +1,19 @@
-body{
-    background-color: rgb(255, 251, 216);
-}/* You can add global styles to this file, and also import other style files */
 
 :root{
+    --bg-yellow: rgb(255, 251, 216);
+    --yellow0: rgb(255, 241, 159);
     --yellow1: rgb(255, 232, 101);
+    --yellow2: rgb(196, 172, 40);
+
+    --yellow4: rgb(112, 97, 9);
+    --bg_blue: rgb(40, 90, 138);
+    --shadow_blue: rgb(24, 61, 95);
+
+    --error: rgb(255, 157, 101);
+}
+body{
+    background-color: var(--bg-yellow);
+    font-size: larger
 }
 .title{
     color:rgb(40, 90, 138)
@@ -14,17 +24,18 @@ body{
     margin-top: 5%;
     padding: 5%;
     padding-top: 2%;
+    padding-bottom: 2%;
     text-align: center;
     justify-content: center;
     align-items: center;
-    background-color: rgb(40, 90, 138);
-    color:rgb(255, 232, 101);
+    background-color: var(--bg_blue);
+    color: var(--yellow1)
 }
 
 .input-field{
     border-radius: 3px;
-    background-color: rgb(255, 232, 101);
-    color:rgb(112, 97, 9);
+    background-color: var(--yellow1);
+    color: var(--yellow4);
     padding: 2px;   
     padding-left: 10px;
     padding-right: 10px;
@@ -32,7 +43,7 @@ body{
 
 }
 .input-field::placeholder{
-    color: rgb(196, 172, 40);
+    color: var(--yellow2);
 }
 
 .input-field:active{
@@ -41,18 +52,18 @@ body{
 }
 .input-field:focus{
     border: 0;
-    background-color: rgb(255, 241, 159);
+    background-color: var(--yellow0);
 
 }
 
 .error{
-    color: rgb(255, 232, 101);
+    color: var(--error);
 }
 
 .mybutton{
     border-radius: 3px;
-    background-color: rgb(196, 172, 40);
-    color:rgb(112, 97, 9);
+    background-color: var(--yellow2);
+    color: var(--yellow4);
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
@@ -60,14 +71,14 @@ body{
     border: 0;
 }
 .mybutton:active{
-    background-color: rgb(255, 232, 101);
+    background-color: var(--yellow1);
     border: 0;
-    box-shadow: 5px 5px 5px 0 rgb(24, 61, 95)
+    box-shadow: 5px 5px 5px 0 var(--shadow_blue)
 }
 .myhomebutton{
     border-radius: 3px;
-    background-color: rgb(255, 232, 101);
-    color:rgb(112, 97, 9);
+    background-color: var(--yellow1);
+    color: var(--yellow4);
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
@@ -78,5 +89,8 @@ body{
 .myhomebutton:active{
     background-color: rgb(255, 242, 170);
     border: 0;
-    box-shadow: 5px 5px 5px 0 rgb(165, 144, 28)
+    box-shadow: 5px 5px 5px 0  var(--shadow_blue)
+}
+.info{
+    font-size: medium;
 }
