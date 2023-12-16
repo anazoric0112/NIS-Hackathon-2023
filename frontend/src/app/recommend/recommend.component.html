@@ -1,28 +1,38 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<img width="140" height="140" src="../../assets/nistaxi-logo.png" class="logo-img">
+<!-- <img width="140" height="140" src="../../assets/nistaxi-logo.png" class="logo-img"> -->
+
+<div class="field-header">Share with link:</div>
+
+<img src={{pathwa}} class="shareicon" (click)="sendWA()">
+<img src={{pathviber}} class="shareicon" (click)="sendViber()">
 <br>
-Share with SMS:
-<br><br>
-<input type="phone" placeholder="+381 XX XXXXXXX" [(ngModel)]="phone" class="input-field">
-<br><br>
-<img src={{pathsms}} class="shareicon" (click)="sendSMS()">
-<br><br>
-<div *ngIf="msg.length>0" [class.error]="!msg.startsWith('Success')" [class.succ]="msg.startsWith('Success')">
-    {{msg}}
-</div>
-<br>
-Share with link:
-<Br><Br>
+
+<div class="field-header">Share with email:</div>
 <input type="text" placeholder="Email" [(ngModel)]="email" class="input-field">
 <br><br>
 <img src={{pathmail}} class="shareicon" (click)="sendEmail()">
-<img src={{pathwa}} class="shareicon" (click)="sendWA()">
-<img src={{pathviber}} class="shareicon" (click)="sendViber()">
 <br>
 <div *ngIf="msg2.length>0" [class.error]="!msg2.startsWith('Success')" [class.succ]="msg2.startsWith('Success')">
     {{msg2}}
 </div>
-<br><br>
+<div *ngIf="msg2.length==0">
+<br>
+</div>
 
-<button (click)="back()" class="myhomebutton">Back to home</button>
+<div class="field-header">Share with SMS:</div>
+<input type="phone" placeholder="+381 XX XXXXXXX" [(ngModel)]="phone" class="input-field">
+<br><br>
+<img src={{pathsms}} class="shareicon" (click)="sendSMS()">
+<br>
+<div *ngIf="msg.length>0" [class.error]="!msg.startsWith('Success')" [class.succ]="msg.startsWith('Success')">
+    {{msg}}
+</div>
+<div *ngIf="msg.length==0">
+    <br>
+</div>
+<br>
+<img src={{pathhome}} class="shareicon" (click)="showHome()">
+<img src={{pathqr}} class="shareicon" (click)="showQR()">
+<img src={{pathshare}} class="shareicon">
+<!-- <button (click)="back()" class="myhomebutton">Back to home</button> -->

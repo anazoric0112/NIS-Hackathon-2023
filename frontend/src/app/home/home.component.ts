@@ -13,6 +13,11 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private service: TaxiService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    let qr = localStorage.getItem("showqr");
+    if (qr == "1") {
+      this.showQR();
+      localStorage.setItem("showqr", "0");
+    }
     let logged = localStorage.getItem("csrftoken");
     if (logged == null) this.router.navigate(["login"]);
     this.card = JSON.parse(localStorage.getItem("card")!);
@@ -24,7 +29,6 @@ export class HomeComponent implements OnInit {
         reader.onload = () => {
           const dataURL = reader.result;
           this.imgSource = dataURL as string;
-          // this.changeDetectorRef.detectChanges();
         };
         reader.readAsDataURL(blob);
       }
@@ -36,13 +40,21 @@ export class HomeComponent implements OnInit {
   imgSource: string = "";
   card: Card = new Card();
 
+  imgpath: string = "../../assets/icons/";
+  pathhome: string = this.imgpath + "home.png";
+  pathshare: string = this.imgpath + "share.png";
+  pathqr: string = this.imgpath + "qr.png";
 
-  toShare() {
+
+  showSh() {
     this.router.navigate(['recommend'])
   }
 
   showQR(): void {
-    this.showCard = !this.showCard;
+    this.showCard = true;
+  }
+  showHome(): void {
+    this.showCard = false;
   }
 
 }

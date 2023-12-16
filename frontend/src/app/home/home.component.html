@@ -4,21 +4,24 @@
 <div *ngIf="showCard">
     <br>
     <div class="centerit">
-    <img src="{{imgSource}}" class="card" style="width: 60%; margin-left: 20%;">
-</div>
+        <img src="{{imgSource}}" class="card" style="width: 60%; margin-left: 20%;">
+    </div>
     <br>
     <br>
 </div>
-<button *ngIf="showCard" class="myhomebutton" (click)="showQR()">Hide my card</button>
-<button *ngIf="!showCard" class="myhomebutton" (click)="showQR()">Show my card</button>
+<div *ngIf="!showCard">
+    <br><br><br><br><br><br><br><br><br>
+</div>
 <br><br><br>
 <div *ngIf="showShare">
     <br>
     <br>
     <br>
 </div>
-<button class="myhomebutton" (click)="toShare()">Share with friends</button>
-<br>
-<br>
+
+<br><br>
+<img src={{pathhome}} class="shareicon" (click)="showHome()">
+<img src={{pathqr}} class="shareicon" (click)="showQR()">
+<img src={{pathshare}} class="shareicon" (click)="showSh()">
 
 

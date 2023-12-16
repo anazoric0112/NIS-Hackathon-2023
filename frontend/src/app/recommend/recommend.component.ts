@@ -31,6 +31,9 @@ export class RecommendComponent {
   pathmail: string = this.imgpath + "mail.png";
   pathwa: string = this.imgpath + "wa.png";
   pathviber: string = this.imgpath + "viber.png";
+  pathhome: string = this.imgpath + "home.png";
+  pathshare: string = this.imgpath + "share.png";
+  pathqr: string = this.imgpath + "qr.png";
 
   check_phone(): boolean {
     this.msg = ""
@@ -102,6 +105,15 @@ export class RecommendComponent {
     )
   }
   back() {
+    this.router.navigate(["home"]);
+  }
+
+  showHome() {
+    this.router.navigate(["home"]);
+  }
+
+  showQR() {
+    localStorage.setItem("showqr", "1");
     this.router.navigate(["home"]);
   }
 
