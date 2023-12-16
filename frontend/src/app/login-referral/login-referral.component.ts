@@ -5,14 +5,12 @@ import { Card } from '../models/card';
 
 @Component({
   selector: 'app-login-referral',
-  standalone: true,
-  imports: [],
   templateUrl: './login-referral.component.html',
-  styleUrl: './login-referral.component.css'
+  styleUrls: ['./login-referral.component.css']
 })
 export class LoginReferralComponent {
-  constructor(private router: Router, private route: ActivatedRoute, private service: TaxiService) {}
-  refCode : string = ''
+  constructor(private router: Router, private route: ActivatedRoute, private service: TaxiService) { }
+  refCode: string = ''
   ngOnInit(): void {
     let logged = localStorage.getItem("csrftoken");
     if (logged != null) this.router.navigate(["home"]);

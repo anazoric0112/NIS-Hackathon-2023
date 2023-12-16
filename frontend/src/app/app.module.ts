@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
+import { CommonModule } from '@angular/common';
+import { LoginReferralComponent } from './login-referral/login-referral.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { LogoutComponent } from './logout/logout.component';
     LoginComponent,
     RecommendComponent,
     HomeComponent,
-    LogoutComponent
+    LogoutComponent,
+    LoginReferralComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

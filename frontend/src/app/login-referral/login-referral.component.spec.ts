@@ -6,12 +6,10 @@ describe('LoginReferralComponent', () => {
   let component: LoginReferralComponent;
   let fixture: ComponentFixture<LoginReferralComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LoginReferralComponent]
-    })
-    .compileComponents();
-    
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [LoginReferralComponent]
+    });
     fixture = TestBed.createComponent(LoginReferralComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
