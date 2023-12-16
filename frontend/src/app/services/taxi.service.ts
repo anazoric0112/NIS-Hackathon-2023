@@ -84,4 +84,7 @@ export class TaxiService {
     });
   }
 
+  getCard(id: string) {
+    return this.http.get<Card>(`${this.baseUrl}/get_card/${id}`);
+  }
 }

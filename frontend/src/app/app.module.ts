@@ -12,6 +12,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { CommonModule } from '@angular/common';
 import { LoginReferralComponent } from './login-referral/login-referral.component';
 import { PumpComponent } from './pump/pump.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PumpComponent } from './pump/pump.component';
     HomeComponent,
     LogoutComponent,
     LoginReferralComponent,
-    PumpComponent
+    PumpComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

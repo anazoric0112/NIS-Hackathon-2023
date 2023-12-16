@@ -34,6 +34,7 @@ export class RecommendComponent {
   pathhome: string = this.imgpath + "home.png";
   pathshare: string = this.imgpath + "share.png";
   pathqr: string = this.imgpath + "qr.png";
+  pathq: string = this.imgpath + "q.png";
 
   check_phone(): boolean {
     this.msg = ""
@@ -47,7 +48,7 @@ export class RecommendComponent {
       this.msg = "Invalid phone format";
     }
     else this.msg = "";
-    return this.msg=="";
+    return this.msg == "";
   }
 
   sendSMS() {
@@ -112,6 +113,9 @@ export class RecommendComponent {
   showQR() {
     localStorage.setItem("showqr", "1");
     this.router.navigate(["home"]);
+  }
+  showInfo() {
+    this.router.navigate(['info'])
   }
 
 }

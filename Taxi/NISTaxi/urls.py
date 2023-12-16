@@ -10,4 +10,5 @@ urlpatterns = [
     path('send_email', send_email_message),
     path('pump_attendant', pump_attendant, name='pump_attendant'),
     path('payment_to_the_card', payment_to_the_card, name='payment_to_the_card'),
+    path('get_card/<str:id>', get_card, name='get_card')
 ]

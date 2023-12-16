@@ -6,11 +6,9 @@
     <div class="centerit">
         <img src="{{imgSource}}" class="card" style="width: 60%; margin-left: 20%;">
     </div>
-    <br>
-    <br>
 </div>
 <div *ngIf="!showCard">
-    <br><br>
+    <br>
     <!-- <br><br><br> -->
     <h2>
         Welcome to your NISTaxi app!
@@ -19,18 +17,24 @@
     <h4>
         Buy, share and earn points and discounts!
     </h4>
-    <br>
+    <br><br><br>
 </div>
-<br><br><br>
+<br><br>
 <div *ngIf="showShare">
     <br>
     <br>
-    <br>
 </div>
+<div *ngIf="!showShare">
+
+    Current points: {{card.points}}<br>
+    Current discounts: {{card.discount}}
+</div>
+
 
 <br><br>
 <img src={{pathhome}} class="shareicon" (click)="showHome()">
 <img src={{pathqr}} class="shareicon" (click)="showQR()">
 <img src={{pathshare}} class="shareicon" (click)="showSh()">
+<img src={{pathq}} class="shareicon" (click)="showInfo()">
 
 

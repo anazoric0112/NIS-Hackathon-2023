@@ -33,6 +33,13 @@ export class HomeComponent implements OnInit {
         reader.readAsDataURL(blob);
       }
     )
+
+    this.service.getCard(this.card.number).subscribe(
+      data => {
+        this.card = data;
+        console.log(this.card);
+      }
+    )
   }
 
   showCard: boolean = false;
@@ -44,12 +51,15 @@ export class HomeComponent implements OnInit {
   pathhome: string = this.imgpath + "home.png";
   pathshare: string = this.imgpath + "share.png";
   pathqr: string = this.imgpath + "qr.png";
+  pathq: string = this.imgpath + "q.png";
 
 
   showSh() {
     this.router.navigate(['recommend'])
   }
-
+  showInfo() {
+    this.router.navigate(['info'])
+  }
   showQR(): void {
     this.showCard = true;
   }

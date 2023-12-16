@@ -300,3 +300,15 @@ def payment_to_the_card(request):
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()
         return HttpResponseForbidden("An error occurred while processing the form.")
+
+@csrf_exempt
+def get_card(request,id):
+    card=Card.objects.get(number=id)
+    return HttpResponse(json.dumps({
+        "number": card.number,
+        "taxiLicence": card.taxilicence.taxilicence,
+        "discount": card.discount,
+        "points": card.points,
+        "balance": card.balance,
+        "qrcode": card.qrcode,
+    }))

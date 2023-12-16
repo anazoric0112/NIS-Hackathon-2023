@@ -5,6 +5,7 @@ import { RecommendComponent } from './recommend/recommend.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LoginReferralComponent } from './login-referral/login-referral.component'; import { PumpComponent } from './pump/pump.component';
+import { InfoComponent } from './info/info.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'recommend', component: RecommendComponent },
   { path: 'home', component: HomeComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'pump', component: PumpComponent }
+  { path: 'pump', component: PumpComponent },
+  { path: 'info', component: InfoComponent }
 ];
 
 @NgModule({

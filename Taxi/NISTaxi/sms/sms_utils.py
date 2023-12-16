@@ -1,6 +1,8 @@
 from twilio.rest import Client
 from NISTaxi.sms.config import *
 
+
+
 # Sends SMS message the the recipient phone number
 # msg : Message body
 # recipient_phone_number : Recipient phone number
