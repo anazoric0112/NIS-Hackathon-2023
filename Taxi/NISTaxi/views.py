@@ -11,7 +11,6 @@ from django.forms import Form
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpRequest
 from django.template.context_processors import request
 
-from .forms import *
 from .utils import *
 from .models import *
 from django.db.models import Q
@@ -192,79 +191,71 @@ def send_email_message(request: HttpRequest):
 @csrf_exempt
 @require_POST
 def pump_attendant(request):
-
     try:
-        pumpForm = pumpAttendantForm(request.POST)
-        if pumpForm.is_valid():
-            # Access the field value using the correct name
-            card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
+        requestjson=json.loads(request.body)
+        # Access the field value using the correct name
+        card = Card.objects.get(number=requestjson['cardnumber'])
 
-            if card is None:
-                return HttpResponse(json.dumps({
-                    "paid": 0,
-                    "balance": 0,
-                    "disc": False,
-                    "points": False,
-                    "msg": "Card doesn't exist"
-                }), status=400);
+        if card is None:
+            return HttpResponse(json.dumps({
+                "paid": 0,
+                "balance": 0,
+                "disc": False,
+                "points": False,
+                "msg": "Card doesn't exist"
+            }), status=400);
 
-            base_payment=pumpForm.cleaned_data['balance']
-            discount=card.discount
-            balance=card.balance
-            points=card.points
-            disc=False
-            points=False
+        base_payment=int(requestjson['balance'])
+        og_payment=base_payment
+        discount=card.discount
+        balance=card.balance
+        points=card.points
+        disc=False
+        pts=False
 
-            if discount>0:
-                discount-=1
-                base_payment*=0.95
-                disc=True
+        if discount>0:
+            discount-=1
+            base_payment*=0.95
+            disc=True
 
-            if points>=100 and base_payment>=1000:
-                points-=100
-                base_payment-=1000
-                points=True
+        if points>=100 and base_payment>=1000:
+            points-=100
+            base_payment-=1000
+            pts=True
 
-            if balance>=base_payment:
+        if balance>=base_payment:
 
-                card.discount=discount
-                card.points=points
-                card.balance -= base_payment
-                card.points+= int(base_payment/190)
-                card.save()
-
-                return HttpResponse(json.dumps({
-                    "paid": base_payment,
-                    "balance": card.balance,
-                    "disc": disc,
-                    "points": points,
-                    "msg": "Success"
-                }), status=200)
-            else:
-                return HttpResponse(json.dumps({
-                    "paid": 0,
-                    "balance": 0,
-                    "disc": disc,
-                    "points": points,
-                    "msg": "Insufficient funds"
-                }), status=400)
+            card.discount=discount
+            card.points=points
+            card.balance -= base_payment
+            card.points+= int(base_payment/190)
+            card.save()
+            print(base_payment)
+            print(og_payment)
+            return HttpResponse(json.dumps({
+                "paid": base_payment,
+                "balance": og_payment,
+                "disc": disc,
+                "points": pts,
+                "msg": "Success"
+            }), status=200)
         else:
-            return HttpResponseForbidden(json.dumps({
-                    "paid": 0,
-                    "balance": 0,
-                    "disc": False,
-                    "points": False,
-                    "msg": "Error occured while processing the form"
-                }), status=400)
-
+            print("AAA")
+            return HttpResponse(json.dumps({
+                "paid": 0,
+                "balance": 0,
+                "disc": False,
+                "points": False,
+                "msg": "Insufficient funds"
+            }), status=200)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()
         return HttpResponseForbidden(json.dumps({
                     "paid": 0,
                     "balance": 0,
-                    "disc": disc,
-                    "points": points,
+                    "disc": False,
+                    "points": False,
                     "msg": "Error occured while processing the form"
                 }), status=400)
 
@@ -272,17 +263,15 @@ def pump_attendant(request):
 @require_POST
 def payment_to_the_card(request):
     try:
-        pumpForm = pumpAttendantForm(request.POST)
-        if pumpForm.is_valid():
             # Access the field value using the correct name
-            card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
+            requestjson=json.loads(request.body)
+            card = Card.objects.get(number=requestjson['cardnumber'])
 
             if(card is not None):
-                card.balance += pumpForm.cleaned_data['balance']
+                card.balance += requestjson['balance']
                 card.save()
 
-            return HttpResponse("Successfully deposited money") # Add the 'return' statement
-        return HttpResponseForbidden("An error occurred while processing the form.")
+            return HttpResponse("Successfully deposited money")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()

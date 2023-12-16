@@ -4,8 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RecommendComponent } from './recommend/recommend.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
-import { LoginReferralComponent } from './login-referral/login-referral.component';
-import { PumpComponent } from './pump/pump.component';
+import { LoginReferralComponent } from './login-referral/login-referral.component'; import { PumpComponent } from './pump/pump.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

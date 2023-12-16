@@ -109,3 +109,7 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.succ{
+    color: rgb(195, 255, 126)
+}

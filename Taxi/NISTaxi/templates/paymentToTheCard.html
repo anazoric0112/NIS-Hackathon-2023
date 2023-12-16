@@ -1,6 +1,0 @@
-<form method="post" action="{% url 'payment_to_the_card' %}">
-    {% csrf_token %}
-    cardnumber: {{ pumpForm.cardnumber }} <br\>
-    balance: {{ pumpForm.balance }} <br\>
-    <button type="submit">Submit</button>
-</form>

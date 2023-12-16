@@ -26,7 +26,7 @@ export class PumpComponent {
       this.msg1 = "Card number in wrong format";
     }
     else this.msg1 = "";
-    if (this.balance == 0) {
+    if (this.balance <= 0) {
       this.msg2 = "Field cash amount missing";
     }
     else this.msg2 = "";
@@ -47,12 +47,14 @@ export class PumpComponent {
 
   add_to_card() {
     if (!this.check()) return;
+    this.payment = new Payment();
     this.service.pay_to_card(this.card, this.balance).subscribe(
       data => {
         this.msg_request = data;
+        this.payment.disc = false;
+        this.payment.points = false;
+        this.payment.balance = -1;
       }
     )
-
-
   }
 }
