@@ -31,6 +31,7 @@ def login_req(request: HttpRequest):
     @param request: HttpRequest
     @return: HttpResponse
     """
+    print("MRK", request.method)
     if request.method != "POST":
         return HttpResponseBadRequest()
     user = json.loads(request.body)
@@ -79,14 +80,5 @@ def login_req(request: HttpRequest):
         "qrcode": card.qrcode,
     })
     return HttpResponse(ret)
-
-
-#@csrf_protect
-#@login_required
-@require_GET
-def get_qr_code(request: HttpRequest):
-    taxi_licence = request.POST.get('taxi_licence')
-
-    return HttpResponse(generate_qr_code_bytes(data='1'), content_type='application/octet-stream')
 
     

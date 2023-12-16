@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0038d2e9-67f1-4ecc-86d7-d75939bfbfe7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/NIS-Hackathon-2023.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/NIS-Hackathon-2023.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Taxi/Taxi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Taxi/Taxi/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Taxi/db_create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Taxi/db_create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheme.sql" beforeDir="false" />
-    </list>
+    <list default="true" id="0038d2e9-67f1-4ecc-86d7-d75939bfbfe7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +67,7 @@
       <workItem from="1702659894737" duration="115000" />
       <workItem from="1702660327697" duration="38000" />
       <workItem from="1702663124103" duration="2847000" />
-      <workItem from="1702671329389" duration="1444000" />
+      <workItem from="1702671329389" duration="2146000" />
     </task>
     <servers />
   </component>
