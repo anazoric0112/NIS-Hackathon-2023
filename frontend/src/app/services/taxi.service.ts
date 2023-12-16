@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { CardCsrf } from '../models/card_csrf';
+import { Card } from '../models/card';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +19,37 @@ export class TaxiService {
     }
     return this.http.post<CardCsrf>(`${this.baseUrl}/login`, data);
   }
-  getQR(qr: string) {
-    return this.http.get<ArrayBuffer>(`${this.baseUrl}/get_qr_code`);
+  getQR() {
+    let card : Card = JSON.parse(localStorage.getItem("card")!)
+    return this.http.post(`${this.baseUrl}/get_qr_code`, { taxilicence : card.taxiLicence }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': localStorage.getItem("csrftoken")!
+      },
+      observe: 'response', // Setting observe to 'response'
+      responseType: 'blob' // Set responseType to 'text'
+    });
   }
-  sendSMS(phone: string) {
 
+  sendSMS(message: string) {
+    return this.http.post(`${this.baseUrl}/send_sms`, { message : message }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': localStorage.getItem("csrftoken")!
+      },
+      responseType: 'text'
+    });
   }
-  sendEmail(email: string) {
-
+  
+  sendEmail(receiver_email: string, subject : string, body : string) {
+    console.log(receiver_email, subject, body)
+    return this.http.post(`${this.baseUrl}/send_email`, { receiver_email : receiver_email, subject : subject, body : body }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': localStorage.getItem("csrftoken")!
+      },
+      responseType: 'text'
+    });
   }
 
 }

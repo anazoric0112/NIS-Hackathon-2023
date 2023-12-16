@@ -8,3 +8,11 @@ Taxi/__pycache__/settings.cpython-310.pyc
 *__pycache__*
 Taxi/NISTaxi/__pycache__/views.cpython-39.pyc
 Taxi/Taxi/__pycache__/settings.cpython-39.pyc
+Taxi/NISTaxi/__pycache__
+Taxi/frontend/.angular
+Taxi/frontend/.vscode
+Taxi/frontend/node_modules
+frontend/.angular
+frontend/.vscode
+frontend/node_modules
+**/__pycache__

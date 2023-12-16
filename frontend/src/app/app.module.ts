@@ -8,13 +8,17 @@ import { RecommendComponent } from './recommend/recommend.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
+import { RedirectingComponent } from './redirecting/redirecting.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RecommendComponent,
-    HomeComponent
+    HomeComponent,
+    RedirectingComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
