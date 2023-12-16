@@ -1,5 +1,16 @@
+
 <h1>Welcome to <b>NISTaxi</b>!</h1>
 <br><br>
-<button class="myhomebutton" (click)="toCard()">My virtual card</button>
-<br><br><br><br>
+<div *ngIf="showCard">
+    <br>
+    <img src="{{imgSource}}" class="card">
+    <br>
+    <br>
+</div>
+<button class="myhomebutton" onclick="fetchData()">My virtual card</button>
+<br><br><br>
 <button class="myhomebutton" (click)="toShare()">Share with friends</button>
+<br>
+<br>
+
+
