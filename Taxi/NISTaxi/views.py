@@ -31,7 +31,7 @@ def login_req(request: HttpRequest):
     @param request: HttpRequest
     @return: HttpResponse
     """
-    print("MRK", request.method)
+
     if request.method != "POST":
         return HttpResponseBadRequest()
     user = json.loads(request.body)
@@ -67,6 +67,8 @@ def login_req(request: HttpRequest):
 
         user.save()
         card.save()
+
+        request.session['taxilicence'] = user.taxilicence
     
     
     csrf_token = get_token(request)
@@ -82,3 +84,8 @@ def login_req(request: HttpRequest):
     return HttpResponse(ret)
 
     
+# @csrf_protect
+# def get_taxi_license(request: HttpRequest):
+#     taxi_license = request.session['taxilicence']
+
+#     return HttpResponse(taxi_license)    
