@@ -1,5 +1,5 @@
 import json
-from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 import math
 
 import django.utils.timezone
@@ -33,7 +33,6 @@ def login_req(request: HttpRequest):
     """
     if request.method != "POST":
         return HttpResponseBadRequest()
-    user = json.loads(request.body)
     
     a = json.loads(request.body)
     
@@ -63,13 +62,10 @@ def login_req(request: HttpRequest):
         card.discount = 0
         card.points = 0
         card.balance = 0
-
+        card.qrcode = str(generate_qr_code_bytes(data = card.number))
         user.save()
         card.save()
 
-        request.session['taxilicence'] = user.taxilicence
-    
-    
     csrf_token = get_token(request)
     ret = json.dumps({
         "csrftoken" : csrf_token,
@@ -83,8 +79,14 @@ def login_req(request: HttpRequest):
     return HttpResponse(ret)
 
     
-# @csrf_protect
-# def get_taxi_license(request: HttpRequest):
-#     taxi_license = request.session['taxilicence']
 
-#     return HttpResponse(taxi_license)    
+@csrf_exempt
+@require_POST
+def get_qr_code(request: HttpRequest):
+    user_json = json.loads(request.body)
+    try:
+        card = Card.objects.get(taxilicence=user_json["taxilicence"])
+        return HttpResponse(generate_qr_code_bytes(card.number))
+        
+    except (Card.DoesNotExist):
+        return HttpResponseNotFound()

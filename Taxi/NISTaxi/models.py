@@ -76,7 +76,7 @@ class Card(models.Model):
     discount = models.IntegerField(blank=True, null=True)
     points = models.IntegerField(blank=True, null=True)
     balance = models.FloatField(blank=True, null=True)
-    qrcode = models.CharField(db_column='QRcode', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    qrcode = models.CharField(db_column='QRcode', max_length=4096, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

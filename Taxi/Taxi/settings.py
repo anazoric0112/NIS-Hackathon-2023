@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nistaxikartica',
         'USER': 'root',
-        'PASSWORD': '54321trewq',
+        'PASSWORD': '123',
         'HOST':'localhost',
         'PORT':'3308'
     }
@@ -144,5 +144,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'NISTaxi.User'
+# AUTH_USER_MODEL = 'NISTaxi.User'
 
