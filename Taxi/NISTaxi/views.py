@@ -168,7 +168,7 @@ def send_sms_message(request: HttpRequest):
     try:
         request_json = json.loads(request.body)
         msg = request_json["message"]
-
+        print(msg)
         send_sms(msg)
 
         return HttpResponse("Successfuly sent SMS message")
