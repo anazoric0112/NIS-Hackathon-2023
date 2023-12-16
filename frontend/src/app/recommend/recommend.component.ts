@@ -11,12 +11,21 @@ import { Router } from '@angular/router';
 export class RecommendComponent {
   constructor(private service: TaxiService, private router: Router) { }
 
+  ngOnInit(){
+    let card: Card = JSON.parse(localStorage.getItem('card')!)
+    let licence_b64 = btoa(card.taxiLicence)
+    this.WAhref = "https://api.whatsapp.com/send?text="+this.baseUrl+"/login/"+licence_b64
+    this.Viberhref = 'viber://forward?text='+this.baseUrl+"/login/"+licence_b64
+  }
+
   phone: string = "";
   email: string = "";
   baseUrl = "http://localhost:4200"
   msg: string = "";
   msg2: string = "";
-
+  WAhref : string = ""
+  Viberhref : string = ""
+  referralLink : string = "123"
   sendSMS() {
     let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;
     this.msg = ""
@@ -61,4 +70,5 @@ export class RecommendComponent {
   back() {
     this.router.navigate(["home"]);
   }
+
 }
