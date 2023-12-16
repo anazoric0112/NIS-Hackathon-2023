@@ -23,16 +23,18 @@
         return str;
     }
     function fetchData() {
-        fetch('http://127.0.0.1:8000/taxi/get_qr_code')
+        fetch('http://127.0.0.1:8000/taxi/get_qr_code_test')
             .then(response => {
+                console.log(response)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.arrayBuffer()
             })
             .then(data => {
+                console.log(data)
                 const blob = new Blob([data], { type: 'image/png' }); // Specify the image type if known
-
+                console.log(blob)
                 const reader = new FileReader();
                 reader.onload = function() {
                     const dataURL = reader.result;
@@ -42,7 +44,7 @@
                     
                     document.body.appendChild(img); 
                 };
-
+                
                 reader.readAsDataURL(blob);
             })
             .catch(error => {
