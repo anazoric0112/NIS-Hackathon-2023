@@ -11,6 +11,7 @@ from django.forms import Form
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpRequest
 from django.template.context_processors import request
 
+from .sms.sms_utils import send_sms
 from .utils import *
 from .models import *
 from django.db.models import Q
@@ -166,13 +167,13 @@ def get_qr_code(request: HttpRequest):
 def send_sms_message(request: HttpRequest):
     try:
         request_json = json.loads(request.body)
-        print(request_json)
         msg = request_json["message"]
 
         send_sms(msg)
 
         return HttpResponse("Successfuly sent SMS message")
-    except:
+    except Exception as e:
+        print(e)
         return HttpResponseNotFound()
     
 @csrf_exempt
@@ -205,7 +206,7 @@ def pump_attendant(request):
                 "disc": False,
                 "points": False,
                 "msg": "Card doesn't exist"
-            }), status=400);
+            }), status=200);
 
         base_payment=int(requestjson['balance'])
         og_payment=base_payment
