@@ -119,3 +119,6 @@ body{
 .shareicon:active{
     background-color: rgba(255, 255, 255, 0.493);
 }
+.logo-img{
+    margin-bottom: 50px;
+}

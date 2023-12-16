@@ -41,7 +41,7 @@ def login_req(request: HttpRequest):
     
     a = json.loads(request.body)
     
-    #print(a, User.objects.filter(phone=a["phone"]).count(), Card.objects.filter(taxilicence=a["taxilicence"]).count())
+    print(a)
     user = None
     card = None
     try:
