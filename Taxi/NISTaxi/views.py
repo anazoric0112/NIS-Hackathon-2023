@@ -238,9 +238,11 @@ def pump_attendant(request):
             email=card.taxilicence.email
             if email!=None and email!="":
                 subject = "Transaction info"
-                body = "Payment processed. Total sum: "+str(base_payment)+"din.\n"+ \
+                body = "Payment processed.\n"+\
+                       "Total sum: "+str(base_payment)+"din.\n"+ \
                         "Points used: "+str(100 if pts else 0)+".\n"+ \
-                        "Discount used: "+str("5%" if disc else "none")+".\n"
+                        "Discount used: "+str("5%" if disc else "none")+".\n\n"+\
+                            "Current balance: "+str(card.balance)+"din\n."
 
                 send_email(email, subject, body)
 
@@ -282,6 +284,15 @@ def payment_to_the_card(request):
             if(card is not None):
                 card.balance += requestjson['balance']
                 card.save()
+
+                email = card.taxilicence.email
+                if email != None and email != "":
+                    subject = "Transaction info"
+                    body = "Payment processed.\n"+\
+                           "Total sum added to the card: "+str(requestjson['balance'])+"din.\n\n"+\
+                            "Current balance: "+str(card.balance)+"din\n."
+
+                    send_email(email, subject, body)
 
             return HttpResponse("Successfully deposited money")
     except Exception as e:

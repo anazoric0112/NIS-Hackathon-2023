@@ -30,6 +30,10 @@ export class PumpComponent {
       this.msg2 = "Field cash amount missing";
     }
     else this.msg2 = "";
+    this.payment.disc = false;
+    this.payment.points = false;
+    this.payment.balance = -1;
+    this.msg_request = ""
     if (this.msg1.length > 0 || this.msg2.length > 0) return false;
     return true;
 

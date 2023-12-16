@@ -5,18 +5,22 @@
 <input type="text" [(ngModel)]="card" placeholder="Card number" class="input-field">
 <br><br>
 <input type="number" [(ngModel)]="balance" placeholder="Cash amount" class="input-field">
-<br><br>
+<br><br><br>
+
  <button class="mybutton" (click)="pay()">Pay transaction</button> <br><br>
  <button class="mybutton" (click)="add_to_card()">Deposit to card</button>
-<br><br>
 
 
-<br>
 <div *ngIf="payment.balance>0" class="succ">
+<br><br>
 Original price: {{payment.balance}}
 <br>
 Paid: {{payment.paid}}
 </div>
+<div *ngIf="payment.balance==0" class="succ">
+<br><br><br>
+</div>
+
 
 <div *ngIf="payment.disc" class="succ">
     Applied discount of 5%
@@ -24,13 +28,18 @@ Paid: {{payment.paid}}
 <div *ngIf="payment.points" class="succ">
     Applied discount of 1000din (100 points worth)
 </div>
-<br>
 
 <div *ngIf="msg1.length>0" class="error">
     {{msg1}}
 </div>
+<div *ngIf="msg1.length==0" class="error">
+    <br>
+</div>
 <div *ngIf="msg2.length>0" class="error">
     {{msg2}}
+</div>
+<div *ngIf="msg2.length==0" class="error">
+    <br>
 </div>
 
 
