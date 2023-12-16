@@ -29,7 +29,6 @@ def login_req(request: HttpRequest):
     @param request: HttpRequest
     @return: HttpResponse
     """
-    print("MRK", request.method)
     if request.method != "POST":
         return HttpResponseBadRequest()
     
