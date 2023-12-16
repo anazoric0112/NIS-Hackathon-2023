@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaxiService } from '../services/taxi.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Card } from '../models/card';
@@ -8,9 +8,14 @@ import { Card } from '../models/card';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private service: TaxiService) { }
+
+  ngOnInit(): void {
+    let logged = localStorage.getItem("csrftoken");
+    if (logged != null) this.router.navigate(["home"]);
+  }
 
   phone: string = "";
   licence: string = "";
@@ -20,7 +25,6 @@ export class LoginComponent {
   msg3: string = "";
 
   login() {
-    // let regexPhone = /^\+\d{3} ?\d{8,9}$/;
     let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;
     let regexLicence = /^[0-9]{5}$/;
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
