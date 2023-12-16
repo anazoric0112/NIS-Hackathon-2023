@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 export class RecommendComponent {
   constructor(private service: TaxiService, private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     let card: Card = JSON.parse(localStorage.getItem('card')!)
     let licence_b64 = btoa(card.taxiLicence)
-    this.WAhref = "https://api.whatsapp.com/send?text="+this.baseUrl+"/login/"+licence_b64
-    this.Viberhref = 'viber://forward?text='+this.baseUrl+"/login/"+licence_b64
+    this.WAhref = "https://api.whatsapp.com/send?text=" + this.baseUrl + "/login/" + licence_b64
+    this.Viberhref = 'viber://forward?text=' + this.baseUrl + "/login/" + licence_b64
   }
 
   phone: string = "";
@@ -23,14 +23,20 @@ export class RecommendComponent {
   baseUrl = "http://localhost:4200"
   msg: string = "";
   msg2: string = "";
-  WAhref : string = ""
-  Viberhref : string = ""
-  referralLink : string = "123"
-  sendSMS() {
-    let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;
+  WAhref: string = ""
+  Viberhref: string = ""
+  referralLink: string = "123"
+  imgpath: string = "../../assets/icons/";
+  pathsms: string = this.imgpath + "sms.png";
+  pathmail: string = this.imgpath + "mail.png";
+  pathwa: string = this.imgpath + "wa.png";
+  pathviber: string = this.imgpath + "viber.png";
+
+  check_phone(): boolean {
     this.msg = ""
     this.msg2 = ""
 
+    let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;
     if (this.phone.length == 0) {
       this.msg = "Field phone missing";
     }
@@ -38,13 +44,37 @@ export class RecommendComponent {
       this.msg = "Invalid phone format";
     }
     else this.msg = "";
+    console.log(this.msg.length)
+    return (this.msg.length > 0);
+  }
 
-    if (this.msg.length > 0) return;
+  sendSMS() {
+
+    if (!this.check_phone()) return;
+    console.log('a');
+    if (this.msg.length != 0) return;
+    console.log('b');
 
     let card: Card = JSON.parse(localStorage.getItem('card')!)
     let licence_b64 = btoa(card.taxiLicence)
 
-    this.service.sendSMS(`${this.baseUrl}/login/${licence_b64}`).subscribe();
+    this.service.sendSMS(`${this.baseUrl}/login/${licence_b64}`).subscribe(
+      data => {
+        this.msg = data;
+      }
+    );
+  }
+
+  sendWA() {
+    this.msg = "";
+    this.msg2 = "";
+    window.location.href = this.WAhref;
+  }
+
+  sendViber() {
+    this.msg = "";
+    this.msg2 = "";
+    window.location.href = this.Viberhref;
   }
 
   sendEmail() {
@@ -65,7 +95,11 @@ export class RecommendComponent {
     let card: Card = JSON.parse(localStorage.getItem('card')!)
     let licence_b64 = btoa(card.taxiLicence)
 
-    this.service.sendEmail(this.email, "NISTaxi Invitation", `${this.baseUrl}/login/${licence_b64}`).subscribe()
+    this.service.sendEmail(this.email, "NISTaxi Invitation", `${this.baseUrl}/login/${licence_b64}`).subscribe(
+      data => {
+        this.msg2 = data;
+      }
+    )
   }
   back() {
     this.router.navigate(["home"]);

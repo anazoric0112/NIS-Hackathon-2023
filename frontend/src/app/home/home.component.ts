@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private service: TaxiService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.cardbuttontext = "Show my card";
     let logged = localStorage.getItem("csrftoken");
     if (logged == null) this.router.navigate(["login"]);
     this.card = JSON.parse(localStorage.getItem("card")!);
@@ -36,20 +35,7 @@ export class HomeComponent implements OnInit {
   showShare: boolean = false;
   imgSource: string = "";
   card: Card = new Card();
-  cardbuttontext: string = "";
 
-
-  toCard() {
-    if (this.showCard == true) {
-      this.cardbuttontext = "Show my card";
-      this.showCard = false;
-    } else {
-      this.cardbuttontext = "Hide my card";
-      console.log(1);
-      this.showCard = true;
-    }
-
-  }
 
   toShare() {
     this.router.navigate(['recommend'])

@@ -7,16 +7,11 @@
 
     --yellow4: rgb(112, 97, 9);
     --bg_blue: rgba(0, 54, 71, 0.5);
-    --shadow_blue: rgb(24, 61, 95);
+    --shadow_blue: rgba(194, 225, 255, 0.295);
 
     --error: rgb(255, 157, 101);
 }
 body{
-    /* background-color: var(--bg-yellow); */
-    /* background-image: image-set("assets/taxi6.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
     font-size: larger;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("assets/taxi5.jpg");
     background-size: cover;
@@ -38,7 +33,6 @@ body{
     align-items: center;
     background-color: var(--bg_blue);
     color: var(--yellow1);
-    /* background-image: image-set("assets/taxi1.jpg"); */
 }
 
 .input-field{
@@ -114,6 +108,17 @@ body{
     color: rgb(195, 255, 126)
 }
 
+.shareicon{
+    height: 85px;
+    margin-left: 2%;
+    border-radius: 10px
+}
+.shareicon:hover{
+    background-color: rgba(255, 255, 255, 0.26);
+}
+.shareicon:active{
+    background-color: rgba(255, 255, 255, 0.493);
+}
 .logo-img{
     margin-bottom: 50px;
 }

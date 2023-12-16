@@ -2,37 +2,25 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 <img width="140" height="140" src="../../assets/nistaxi-logo.png" class="logo-img">
 <br>
-<h1>Share with friends and get bonuses</h1>
-<br><br>
-Friend phone number:
+Share with SMS:
 <br><br>
 <input type="phone" placeholder="+381 XX XXXXXXX" [(ngModel)]="phone" class="input-field">
 <br><br>
-<button type="submit" (click)="sendSMS()" class="mybutton">Send SMS invitation</button>
+<img src={{pathsms}} class="shareicon" (click)="sendSMS()">
 <br><br>
-<div *ngIf="msg.length>0" class="error">
+<div *ngIf="msg.length>0" [class.error]="!msg.startsWith('Success')" [class.succ]="msg.startsWith('Success')">
     {{msg}}
 </div>
-<br><br>
-Friend email:
+<br>
+Share with link:
 <Br><Br>
 <input type="text" placeholder="Email" [(ngModel)]="email" class="input-field">
 <br><br>
-<button type="submit" (click)="sendEmail()" class="mybutton">Send email invitation</button>
-<br><br>
-<div *ngIf="msg2.length>0" class="error">
-    {{msg2}}
-</div>
-<br><br>
-<a [href]="WAhref" target="_blank" rel="noopener noreferrer">
-    <i class="fab fa-whatsapp"></i> Share on WhatsApp
-</a>
-<br><br>
-<a [href]="Viberhref" target="_blank" rel="noopener noreferrer">
-    <i class="fab fa-viber"></i> Share on Viber
-</a>
-<br><br>
-<div *ngIf="msg2.length>0" class="error">
+<img src={{pathmail}} class="shareicon" (click)="sendEmail()">
+<img src={{pathwa}} class="shareicon" (click)="sendWA()">
+<img src={{pathviber}} class="shareicon" (click)="sendViber()">
+<br>
+<div *ngIf="msg2.length>0" [class.error]="!msg2.startsWith('Success')" [class.succ]="msg2.startsWith('Success')">
     {{msg2}}
 </div>
 <br><br>
