@@ -23,11 +23,9 @@ export class HomeComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = () => {
           const dataURL = reader.result;
-          // this.imgSource = dataURL as string
           this.imgSource = dataURL as string;
-          this.changeDetectorRef.detectChanges();
+          // this.changeDetectorRef.detectChanges();
         };
-        console.log(this.imgSource)
         reader.readAsDataURL(blob);
       }
     )
