@@ -110,6 +110,7 @@ def login_referral(request, ref_code):
         card = Card()
         user.taxilicence = a["taxilicence"]
         user.phone = a["phone"]
+        user.email = a["email"]
 
         card.taxilicence = user
         tmp = Card.objects.aggregate(Max("number"))
