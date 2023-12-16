@@ -194,7 +194,7 @@ def pump_attendant(request):
                     card.balance -= pumpForm.cleaned_data['balance']
                     card.save()
 
-                return redirect('')  # Add the 'return' statement
+                return HttpResponse("Successfully payment") # Add the 'return' statement
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             traceback.print_exc()
@@ -217,7 +217,7 @@ def payment_to_the_card(request):
                     card.balance += pumpForm.cleaned_data['balance']
                     card.save()
 
-                return redirect('')  # Add the 'return' statement
+                return HttpResponse("Successfully deposited money") # Add the 'return' statement
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             traceback.print_exc()
