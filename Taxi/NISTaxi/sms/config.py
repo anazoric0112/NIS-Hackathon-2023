@@ -1,8 +1,8 @@
 from twilio.rest import Client
 
-account_sid = 'AC5976d2495214230258657c24c4ed7e89'
-auth_token = '58f9783adfa17e03ce3aeb8562c2a9d1'
-twilio_phone_number = '+14314415765'
+account_sid = 'ACd92628dd0666c95f82391502d224f91f'
+auth_token = '32ca2adb2f096c3c2e604f1d38484b88'
+twilio_phone_number = '+12057820889'
 
 init = True
 if init:

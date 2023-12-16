@@ -166,7 +166,7 @@ def get_qr_code(request: HttpRequest):
 def send_sms_message(request: HttpRequest):
     try:
         request_json = json.loads(request.body)
-
+        print(request_json)
         msg = request_json["message"]
 
         send_sms(msg)

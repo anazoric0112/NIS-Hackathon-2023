@@ -44,16 +44,13 @@ export class RecommendComponent {
       this.msg = "Invalid phone format";
     }
     else this.msg = "";
-    console.log(this.msg.length)
-    return (this.msg.length > 0);
+    return this.msg=="";
   }
 
   sendSMS() {
 
     if (!this.check_phone()) return;
-    console.log('a');
     if (this.msg.length != 0) return;
-    console.log('b');
 
     let card: Card = JSON.parse(localStorage.getItem('card')!)
     let licence_b64 = btoa(card.taxiLicence)

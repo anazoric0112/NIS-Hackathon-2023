@@ -91,10 +91,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nistaxikartica',
         'USER': 'root',
-        'PASSWORD': '54321trewq',
+        'PASSWORD': '123',
         'HOST':'localhost',
         'PORT':'3308'
-    }
+    }   
 }
 
 
