@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CommonModule } from '@angular/common';
 import { LoginReferralComponent } from './login-referral/login-referral.component';
+import { PumpComponent } from './pump/pump.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginReferralComponent } from './login-referral/login-referral.componen
     RecommendComponent,
     HomeComponent,
     LogoutComponent,
-    LoginReferralComponent
+    LoginReferralComponent,
+    PumpComponent
   ],
   imports: [
     BrowserModule,

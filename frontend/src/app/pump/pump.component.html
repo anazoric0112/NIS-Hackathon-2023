@@ -1,0 +1,21 @@
+<br>
+<h1>Transactions simulation</h1>
+<br><br>
+<input type="text" [(ngModel)]="card" placeholder="Card number" class="input-field">
+<br><br>
+<input type="number" [(ngModel)]="balance" placeholder="Cash amount" class="input-field">
+<br><br>
+ <button class="mybutton" (click)="pay()">Pay transaction</button> <br><br>
+ <button class="mybutton" (click)="add_to_card()">Deposit to card</button>
+<br><br>
+ <div *ngIf="msg1.length>0" class="error">
+    {{msg1}}
+</div>
+<div *ngIf="msg2.length>0" class="error">
+    {{msg2}}
+</div>
+
+
+ <div *ngIf="msg_request.length>0">
+    {{msg_request}}
+</div>

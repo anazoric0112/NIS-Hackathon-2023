@@ -3,12 +3,13 @@
 <br><br>
 <div *ngIf="showCard">
     <br>
-    <img src="{{imgSource}}" class="card">
-    
+    <div class="centerit">
+    <img src="{{imgSource}}" class="card" style="width: 60%; margin-left: 20%;">
+</div>
     <br>
     <br>
 </div>
-<button class="myhomebutton" (click)="showQR()">My virtual card</button>
+<button class="myhomebutton" (click)="showQR()">{{cardbuttontext}}</button>
 <br><br><br>
 <div *ngIf="showShare">
     <br>

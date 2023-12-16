@@ -103,3 +103,9 @@ body{
 .error{
     color: var(--error);
 }
+
+.centerit{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

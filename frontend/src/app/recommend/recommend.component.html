@@ -9,21 +9,19 @@ Friend phone number:
 <br><br>
 <button type="submit" (click)="sendSMS()" class="mybutton">Send SMS invitation</button>
 <br><br>
+<div *ngIf="msg.length>0" class="error">
+    {{msg}}
+</div>
+<br><br>
 Friend email:
 <Br><Br>
 <input type="text" placeholder="Email" [(ngModel)]="email" class="input-field">
 <br><br>
 <button type="submit" (click)="sendEmail()" class="mybutton">Send email invitation</button>
 <br><br>
-
-<br>
-<br>
-<div *ngIf="msg.length>0" class="error">
-    {{msg}}
-</div>
 <div *ngIf="msg2.length>0" class="error">
     {{msg2}}
 </div>
-<br>
+<br><br>
 
 <button (click)="back()" class="myhomebutton">Back to home</button>

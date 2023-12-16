@@ -110,7 +110,8 @@ def login_referral(request, ref_code):
         card = Card()
         user.taxilicence = a["taxilicence"]
         user.phone = a["phone"]
-        user.email = a["email"]
+        if "email" in a:
+            user.email = a["email"]
 
         card.taxilicence = user
         tmp = Card.objects.aggregate(Max("number"))
@@ -128,6 +129,13 @@ def login_referral(request, ref_code):
         card.save()
         referred_card.discount += 1
         referred_card.save()
+
+        recom=Recomendation()
+        user_who_referred = User.objects.get(taxilicence=referred_licence)
+        recom.user1=user_who_referred
+        recom.user2=user
+        recom.save()
+
 
     csrf_token = get_token(request)
     ret = json.dumps({
@@ -180,47 +188,102 @@ def send_email_message(request: HttpRequest):
         return HttpResponse("Successfuly sent email message")
     except:
         return HttpResponseNotFound()
-    
+
+@csrf_exempt
+@require_POST
 def pump_attendant(request):
-    if request.method == "GET":
-        pumpForm = pumpAttendantForm()
-        return render(request, "pumpAttendant.html", {"pumpForm": pumpForm})
-    elif request.method == "POST":
-        try:
-            pumpForm = pumpAttendantForm(request.POST)
-            if pumpForm.is_valid():
-                # Access the field value using the correct name
-                card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
 
-                if(card is not None):
-                    card.balance -= pumpForm.cleaned_data['balance']
-                    card.save()
+    try:
+        pumpForm = pumpAttendantForm(request.POST)
+        if pumpForm.is_valid():
+            # Access the field value using the correct name
+            card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
 
-                return HttpResponse("Successfully payment") # Add the 'return' statement
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            traceback.print_exc()
-            return HttpResponseForbidden("An error occurred while processing the form.")
-        
+            if card is None:
+                return HttpResponse(json.dumps({
+                    "paid": 0,
+                    "balance": 0,
+                    "disc": False,
+                    "points": False,
+                    "msg": "Card doesn't exist"
+                }), status=400);
+
+            base_payment=pumpForm.cleaned_data['balance']
+            discount=card.discount
+            balance=card.balance
+            points=card.points
+            disc=False
+            points=False
+
+            if discount>0:
+                discount-=1
+                base_payment*=0.95
+                disc=True
+
+            if points>=100 and base_payment>=1000:
+                points-=100
+                base_payment-=1000
+                points=True
+
+            if balance>=base_payment:
+
+                card.discount=discount
+                card.points=points
+                card.balance -= base_payment
+                card.points+= int(base_payment/190)
+                card.save()
+
+                return HttpResponse(json.dumps({
+                    "paid": base_payment,
+                    "balance": card.balance,
+                    "disc": disc,
+                    "points": points,
+                    "msg": "Success"
+                }), status=200)
+            else:
+                return HttpResponse(json.dumps({
+                    "paid": 0,
+                    "balance": 0,
+                    "disc": disc,
+                    "points": points,
+                    "msg": "Insufficient funds"
+                }), status=400)
+        else:
+            return HttpResponseForbidden(json.dumps({
+                    "paid": 0,
+                    "balance": 0,
+                    "disc": False,
+                    "points": False,
+                    "msg": "Error occured while processing the form"
+                }), status=400)
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        traceback.print_exc()
+        return HttpResponseForbidden(json.dumps({
+                    "paid": 0,
+                    "balance": 0,
+                    "disc": disc,
+                    "points": points,
+                    "msg": "Error occured while processing the form"
+                }), status=400)
+
+@csrf_exempt
+@require_POST
 def payment_to_the_card(request):
-    if request.method == "GET":
-        pumpForm = pumpAttendantForm()
-        return render(request, "paymentToTheCard.html", {"pumpForm": pumpForm})
-    elif request.method == "POST":
-        try:
-            pumpForm = pumpAttendantForm(request.POST)
-            if pumpForm.is_valid():
-                # Access the field value using the correct name
-                card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
+    try:
+        pumpForm = pumpAttendantForm(request.POST)
+        if pumpForm.is_valid():
+            # Access the field value using the correct name
+            card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
 
-                
-                if(card is not None):
+            if(card is not None):
+                card.balance += pumpForm.cleaned_data['balance']
+                card.save()
 
-                    card.balance += pumpForm.cleaned_data['balance']
-                    card.save()
-
-                return HttpResponse("Successfully deposited money") # Add the 'return' statement
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            traceback.print_exc()
-            return HttpResponseForbidden("An error occurred while processing the form.")
+            return HttpResponse("Successfully deposited money") # Add the 'return' statement
+        return HttpResponseForbidden("An error occurred while processing the form.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        traceback.print_exc()
+        return HttpResponseForbidden("An error occurred while processing the form.")
