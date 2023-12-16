@@ -12,11 +12,9 @@ export class RecommendComponent {
   
   phone: string = "";
   email: string = "";
-  baseUrl = "http://localhost:4200/taxi"
+  baseUrl = "http://localhost:4200"
   msg: string = "";
   msg2: string = "";
-  // msg3: string = "";
-  // msg4: string = "";
 
   sendSMS(){
     let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaxiService } from '../services/taxi.service';
 import { Card } from '../models/card';
@@ -10,7 +10,7 @@ import { Buffer } from 'buffer';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private service: TaxiService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private service: TaxiService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     let logged = localStorage.getItem("csrftoken");
@@ -23,7 +23,9 @@ export class HomeComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = () => { 
           const dataURL = reader.result;
-          this.imgSource = dataURL as string
+          // this.imgSource = dataURL as string
+          this.imgSource = dataURL as string;
+          this.changeDetectorRef.detectChanges();
         };
         console.log(this.imgSource)
         reader.readAsDataURL(blob);
@@ -42,7 +44,7 @@ export class HomeComponent implements OnInit {
   }
   
   toShare() {
-    this.showShare = !this.showShare;
+    this.router.navigate(["recommend"])
   }
 
   showQR(): void {

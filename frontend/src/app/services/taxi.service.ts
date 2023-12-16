@@ -19,8 +19,18 @@ export class TaxiService {
     }
     return this.http.post<CardCsrf>(`${this.baseUrl}/login`, data);
   }
+
+  loginReferral(phone: string, licence: string, ref_code: string) {
+    let data = {
+      phone: phone,
+      taxilicence: licence
+    }
+    return this.http.post<CardCsrf>(`${this.baseUrl}/login/${ref_code}`, data);
+  }
   getQR() {
     let card : Card = JSON.parse(localStorage.getItem("card")!)
+    console.log(card)
+    console.log(card.taxiLicence)
     return this.http.post(`${this.baseUrl}/get_qr_code`, { taxilicence : card.taxiLicence }, {
       headers: {
         'Content-Type': 'application/json',
