@@ -3,14 +3,16 @@
 <br>
 <h1>Share with friends and get bonuses</h1>
 <br><br>
-Friend phone number
+Friend phone number:
 <br><br>
 <input type="phone" placeholder="+381 XX XXXXXXX" [(ngModel)]="phone" class="input-field">
+<br><br>
 <button type="submit" (click)="sendSMS()" class="mybutton">Send SMS invitation</button>
 <br><br>
 Friend email:
 <Br><Br>
 <input type="text" placeholder="Email" [(ngModel)]="email" class="input-field">
+<br><br>
 <button type="submit" (click)="sendEmail()" class="mybutton">Send email invitation</button>
 <br><br>
 
@@ -23,3 +25,5 @@ Friend email:
     {{msg2}}
 </div>
 <br>
+
+<button (click)="back()" class="myhomebutton">Back to home</button>

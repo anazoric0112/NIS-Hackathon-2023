@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 
     this.service.getQR().subscribe(
       data => {
-        const blob = new Blob([data.body!], { type: 'image/png' }); 
+        const blob = new Blob([data.body!], { type: 'image/png' });
         const reader = new FileReader();
-        reader.onload = () => { 
+        reader.onload = () => {
           const dataURL = reader.result;
           // this.imgSource = dataURL as string
           this.imgSource = dataURL as string;
@@ -42,9 +42,9 @@ export class HomeComponent implements OnInit {
   toCard() {
     this.showCard = !this.showCard;
   }
-  
+
   toShare() {
-    this.router.navigate(["recommend"])
+    this.router.navigate(['recommend'])
   }
 
   showQR(): void {
