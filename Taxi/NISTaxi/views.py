@@ -22,6 +22,7 @@ import json
 
 from NISTaxi.qr.qr_utils import *
 from NISTaxi.sms.sms_utils import *
+from NISTaxi.email.email_utils import *
 
 def ping(request: HttpRequest) -> HttpResponse:
     return HttpResponse('It works')
@@ -94,7 +95,6 @@ def get_qr_code(request: HttpRequest):
 
 @csrf_exempt
 def send_sms_message(request: HttpRequest):
-    print("ASDAD")
     try:
         request_json = json.loads(request.body)
 
@@ -102,6 +102,21 @@ def send_sms_message(request: HttpRequest):
 
         send_sms(msg)
 
-        return HttpResponse("Successfuly send message")
+        return HttpResponse("Successfuly sent SMS message")
+    except:
+        return HttpResponseNotFound()
+    
+@csrf_exempt
+def send_email_message(request: HttpRequest):
+    try:
+        request_json = json.loads(request.body)
+
+        receiver_email = request_json['receiver_email']
+        subject = request_json['subject']
+        body = request_json['body']
+
+        send_email(receiver_email, subject, body)
+
+        return HttpResponse("Successfuly sent email message")
     except:
         return HttpResponseNotFound()
