@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nistaxikartica',
         'USER': 'root',
-        'PASSWORD': 'Djkripermaster4.',
+        'PASSWORD': '54321trewq',
         'HOST':'localhost',
         'PORT':'3306'
     }

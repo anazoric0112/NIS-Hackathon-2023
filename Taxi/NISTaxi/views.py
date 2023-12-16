@@ -140,7 +140,7 @@ def login_referral(request, ref_code):
     })
     return HttpResponse(ret)
 
-@csrf_protect
+@csrf_exempt
 @require_POST
 def get_qr_code(request: HttpRequest):
     user_json = json.loads(request.body)
