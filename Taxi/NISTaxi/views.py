@@ -168,12 +168,13 @@ def send_sms_message(request: HttpRequest):
         request_json = json.loads(request.body)
         print(request_json)
         msg = request_json["message"]
-
+        print(msg)
         send_sms(msg)
 
         return HttpResponse("Successfuly sent SMS message")
-    except:
-        return HttpResponseNotFound()
+    except Exception as e:
+        print(e)
+        return HttpResponseNotFound("Not working")
     
 @csrf_exempt
 def send_email_message(request: HttpRequest):
