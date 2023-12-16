@@ -9,12 +9,12 @@ export class TaxiService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = "http://localhost:8080"
+  baseUrl = "http://localhost:8000"
 
   login(phone: string, licence: string) {
     let data = {
       phone: phone,
-      taxiLicence: licence
+      taxilicence: licence
     }
     return this.http.post<CardCsrf>(`${this.baseUrl}/taxi/login`, data);
   }
