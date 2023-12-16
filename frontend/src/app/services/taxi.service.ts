@@ -9,17 +9,17 @@ export class TaxiService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = "http://localhost:8000"
+  baseUrl = "http://localhost:8000/taxi"
 
   login(phone: string, licence: string) {
     let data = {
       phone: phone,
       taxilicence: licence
     }
-    return this.http.post<CardCsrf>(`${this.baseUrl}/taxi/login`, data);
+    return this.http.post<CardCsrf>(`${this.baseUrl}/login`, data);
   }
-  scanQR(qr: string) {
-
+  getQR(qr: string) {
+    return this.http.get<ArrayBuffer>(`${this.baseUrl}/get_qr_code`);
   }
   sendSMS(phone: string) {
 
