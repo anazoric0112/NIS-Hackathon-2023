@@ -73,6 +73,7 @@ export class TaxiService {
     });
   }
   payment(card: string, basePayment: number) {
+    console.log(localStorage.getItem("csrftoken"))
     return this.http.post<Payment>(`${this.baseUrl}/pump_attendant`, { cardnumber: card, balance: basePayment }, {
       headers: {
         'Content-Type': 'application/json',
