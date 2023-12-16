@@ -23,6 +23,7 @@ import json
 from NISTaxi.qr.qr_utils import *
 from NISTaxi.sms.sms_utils import *
 from NISTaxi.email.email_utils import *
+from NISTaxi.referral.referral_utils import *
 
 def ping(request: HttpRequest) -> HttpResponse:
     return HttpResponse('It works')
@@ -37,8 +38,8 @@ def login_req(request: HttpRequest):
         return HttpResponseBadRequest()
     
     a = json.loads(request.body)
-    print(a, User.objects.filter(phone=a["phone"]).count(), Card.objects.filter(taxilicence=a["taxilicence"]).count())
     
+    #print(a, User.objects.filter(phone=a["phone"]).count(), Card.objects.filter(taxilicence=a["taxilicence"]).count())
     user = None
     card = None
     try:
@@ -81,7 +82,60 @@ def login_req(request: HttpRequest):
     })
     return HttpResponse(ret)
 
+@csrf_exempt
+def login_referral(request, ref_code):
+    if request.method != "POST":
+        return HttpResponseBadRequest()
     
+    referred_licence = decode_referral_code(ref_code)
+    a = json.loads(request.body)
+    user = None
+    card = None
+    referred_card = Card.objects.get(taxilicence=referred_licence)
+    try:
+        user = User.objects.get(phone=a["phone"], taxilicence=a["taxilicence"])
+        card = Card.objects.get(taxilicence=user.taxilicence)
+    except (User.DoesNotExist, Card.DoesNotExist):
+        if User.objects.filter(phone=a["phone"]).count() > 0:
+            return HttpResponseForbidden("User with same phone exist, but licences doesn't match")
+        if Card.objects.filter(taxilicence=a["taxilicence"]).count() > 0:
+            return HttpResponseForbidden("User with same taxilicene exist, but phones doesn't match")
+        if Card.objects.filter(taxilicence=referred_licence).count() == 0:
+            return HttpResponseForbidden("Invalid referral code")
+        
+        user = User()
+        card = Card()
+        user.taxilicence = a["taxilicence"]
+        user.phone = a["phone"]
+
+        card.taxilicence = user
+        tmp = Card.objects.aggregate(Max("number"))
+        tmp = tmp['number__max']
+        if tmp is None:
+            tmp = 7824723600000000
+        else:
+            tmp = int(tmp)
+        card.number = str(tmp + 1)
+        card.discount = 0
+        card.points = 0
+        card.balance = 0
+        card.qrcode = str(generate_qr_code_bytes(data = card.number))
+        user.save()
+        card.save()
+        referred_card.discount += 1
+        referred_card.save()
+
+    csrf_token = get_token(request)
+    ret = json.dumps({
+        "csrftoken" : csrf_token,
+        "number": card.number,
+        "taxilicence": card.taxilicence.taxilicence,
+        "discount": card.discount,
+        "points": card.points,
+        "balance": card.balance,
+        "qrcode": card.qrcode,
+    })
+    return HttpResponse(ret)
 
 @csrf_protect
 @require_POST
