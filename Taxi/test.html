@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+
+<h1>API Request Example</h1>
+
+<div id="output"></div>
+
+<div id="imageContainer"></div>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
+<script>
+    function hexToString(hex) {
+        let str = '';
+        for (let i = 0; i < hex.length; i += 2) {
+            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+        }
+        return str;
+    }
+    function fetchData() {
+        fetch('http://127.0.0.1:8000/taxi/get_qr_code')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.arrayBuffer()
+            })
+            .then(data => {
+                const blob = new Blob([data], { type: 'image/png' }); // Specify the image type if known
+
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const dataURL = reader.result;
+                    
+                    const img = document.createElement('img');
+                    img.src = dataURL;
+                    
+                    document.body.appendChild(img); 
+                };
+
+                reader.readAsDataURL(blob);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                document.getElementById('output').innerText = 'Error fetching data from the API';
+            });
+    }
+
+    fetchData();
+</script>
+
+</body>
+</html>

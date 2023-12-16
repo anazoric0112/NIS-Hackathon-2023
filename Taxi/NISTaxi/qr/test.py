@@ -3,7 +3,7 @@ from io import BytesIO
 from qr_utils import *
 
 qr_bytes = generate_qr_code_bytes()
-
+print(qr_bytes)
 for str in decode_qr_bytes(qr_bytes):
     print(str)
 

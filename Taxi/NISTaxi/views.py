@@ -13,12 +13,14 @@ from .utils import *
 from .models import *
 from django.db.models import Q
 from django.db.transaction import commit, rollback
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.http import require_GET, require_POST
 from django.middleware.csrf import get_token
 from django.db.models import Max
 import json
 
-# Create your views here.
+from NISTaxi.qr.qr_utils import *
 
 def ping(request: HttpRequest) -> HttpResponse:
     return HttpResponse('It works')
@@ -29,9 +31,10 @@ def login_req(request: HttpRequest):
     @param request: HttpRequest
     @return: HttpResponse
     """
-    print("MRK", request.method)
+
     if request.method != "POST":
         return HttpResponseBadRequest()
+    user = json.loads(request.body)
     
     a = json.loads(request.body)
     
@@ -64,6 +67,8 @@ def login_req(request: HttpRequest):
 
         user.save()
         card.save()
+
+        request.session['taxilicence'] = user.taxilicence
     
     
     csrf_token = get_token(request)
@@ -79,3 +84,8 @@ def login_req(request: HttpRequest):
     return HttpResponse(ret)
 
     
+# @csrf_protect
+# def get_taxi_license(request: HttpRequest):
+#     taxi_license = request.session['taxilicence']
+
+#     return HttpResponse(taxi_license)    
