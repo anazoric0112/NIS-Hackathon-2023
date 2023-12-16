@@ -21,6 +21,7 @@ from django.db.models import Max
 import json
 
 from NISTaxi.qr.qr_utils import *
+from NISTaxi.sms.sms_utils import *
 
 def ping(request: HttpRequest) -> HttpResponse:
     return HttpResponse('It works')
@@ -81,7 +82,7 @@ def login_req(request: HttpRequest):
 
     
 
-@csrf_exempt
+@csrf_protect
 @require_POST
 def get_qr_code(request: HttpRequest):
     user_json = json.loads(request.body)
@@ -90,4 +91,18 @@ def get_qr_code(request: HttpRequest):
         return HttpResponse(generate_qr_code_bytes(card.number))
         
     except (Card.DoesNotExist):
+        return HttpResponseNotFound()
+
+@csrf_exempt
+def send_sms_message(request: HttpRequest):
+    print("ASDAD")
+    try:
+        request_json = json.loads(request.body)
+
+        msg = request_json["message"]
+
+        send_sms(msg)
+
+        return HttpResponse("Successfuly send message")
+    except:
         return HttpResponseNotFound()

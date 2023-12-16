@@ -45,11 +45,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["recommend"]);
   }
 
-  hexToBase64(hexString: string): string {
-    console.log(hexString.slice(2).slice(0, -1))
-    return Buffer.from(hexString.slice(2).slice(0, -1), 'hex').toString('base64');
-  }
-
   showQR(): void {
     this.showCard = !this.showCard;
   }

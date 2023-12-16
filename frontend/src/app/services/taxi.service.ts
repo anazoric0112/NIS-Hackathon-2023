@@ -30,9 +30,11 @@ export class TaxiService {
       responseType: 'blob' // Set responseType to 'text'
     });
   }
+
   sendSMS(phone: string) {
 
   }
+  
   sendEmail(email: string) {
 
   }
