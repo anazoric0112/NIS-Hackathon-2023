@@ -1,6 +1,8 @@
 import json
+import traceback
 from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 import math
+from django.shortcuts import redirect, render
 
 import django.utils.timezone
 from datetime import datetime, timedelta
@@ -9,6 +11,7 @@ from django.forms import Form
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpRequest
 from django.template.context_processors import request
 
+from .forms import *
 from .utils import *
 from .models import *
 from django.db.models import Q
@@ -121,3 +124,47 @@ def send_email_message(request: HttpRequest):
         return HttpResponse("Successfuly sent email message")
     except:
         return HttpResponseNotFound()
+    
+def pump_attendant(request):
+    if request.method == "GET":
+        pumpForm = pumpAttendantForm()
+        return render(request, "pumpAttendant.html", {"pumpForm": pumpForm})
+    elif request.method == "POST":
+        try:
+            pumpForm = pumpAttendantForm(request.POST)
+            if pumpForm.is_valid():
+                # Access the field value using the correct name
+                card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
+
+                if(card is not None):
+                    card.balance -= pumpForm.cleaned_data['balance']
+                    card.save()
+
+                return redirect('')  # Add the 'return' statement
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            traceback.print_exc()
+            return HttpResponseForbidden("An error occurred while processing the form.")
+        
+def payment_to_the_card(request):
+    if request.method == "GET":
+        pumpForm = pumpAttendantForm()
+        return render(request, "paymentToTheCard.html", {"pumpForm": pumpForm})
+    elif request.method == "POST":
+        try:
+            pumpForm = pumpAttendantForm(request.POST)
+            if pumpForm.is_valid():
+                # Access the field value using the correct name
+                card = Card.objects.get(number=pumpForm.cleaned_data['cardnumber'])
+
+                
+                if(card is not None):
+
+                    card.balance += pumpForm.cleaned_data['balance']
+                    card.save()
+
+                return redirect('')  # Add the 'return' statement
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            traceback.print_exc()
+            return HttpResponseForbidden("An error occurred while processing the form.")

@@ -30,7 +30,7 @@ CREATE TABLE `card` (
   `discount` int DEFAULT NULL,
   `points` int DEFAULT NULL,
   `balance` float DEFAULT NULL,
-  `QRcode` varchar(1024) DEFAULT NULL,
+  `QRcode` varchar(4096) DEFAULT NULL,
   PRIMARY KEY (`number`),
   UNIQUE KEY `taxiLicence_UNIQUE` (`taxiLicence`),
   CONSTRAINT `taxiLicence` FOREIGN KEY (`taxiLicence`) REFERENCES `user` (`taxiLicence`)
