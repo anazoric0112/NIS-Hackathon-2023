@@ -61,7 +61,8 @@ export class LoginComponent implements OnInit {
         card.balance = data.balance;
         card.discount = data.discount;
         card.number = data.number;
-        card.taxiLicence = data.taxiLicence;
+        // card.taxiLicence = data.taxiLicence;
+        card.taxiLicence = this.licence // changed to this
         card.points = data.points;
         card.qrcode = data.qrcode;
         localStorage.setItem("card", JSON.stringify(card));
