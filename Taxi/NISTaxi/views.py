@@ -41,7 +41,7 @@ def login_req(request: HttpRequest):
     
     a = json.loads(request.body)
     
-    #print(a, User.objects.filter(phone=a["phone"]).count(), Card.objects.filter(taxilicence=a["taxilicence"]).count())
+    print(a)
     user = None
     card = None
     try:
@@ -56,6 +56,8 @@ def login_req(request: HttpRequest):
         card = Card()
         user.taxilicence = a["taxilicence"]
         user.phone = a["phone"]
+        if "email" in a:
+            user.email = a["email"]
 
         card.taxilicence = user
         tmp = Card.objects.aggregate(Max("number"))
