@@ -9,6 +9,6 @@ import { Router } from '@angular/router';
 export class RedirectingComponent {
   constructor(private router: Router)
   {
-    router.navigate(["home"])
+    router.navigate(["login"])
   }
 }

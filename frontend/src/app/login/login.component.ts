@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   msg: string = "";
   msg2: string = "";
   msg3: string = "";
+  msg4: string = "";
 
   login() {
     let regexPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\ ]?[0-9]{2}[-\ ]?[0-9]{6,7}$/;
@@ -52,8 +53,10 @@ export class LoginComponent implements OnInit {
 
     if (this.msg.length > 0 || this.msg2.length > 0 || this.msg3.length > 0) return;
 
-    this.service.login(this.phone, this.licence).subscribe(
-      data => {
+    this.msg4 = "";
+
+    this.service.login(this.phone, this.licence).subscribe({
+      next: data => {
         if (data == null) return;
         let csrf_token = data.csrftoken;
         localStorage.setItem("csrftoken", JSON.stringify(csrf_token));
@@ -68,7 +71,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("card", JSON.stringify(card));
 
         this.router.navigate(['home']);
-      }
-    )
+      },
+      error: error => {
+        this.msg4 = error.error
+      },
+    })
   }
 }

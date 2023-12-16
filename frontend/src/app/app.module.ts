@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RedirectingComponent } from './redirecting/redirecting.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RedirectingComponent } from './redirecting/redirecting.component';
     LoginComponent,
     RecommendComponent,
     HomeComponent,
-    RedirectingComponent
+    RedirectingComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

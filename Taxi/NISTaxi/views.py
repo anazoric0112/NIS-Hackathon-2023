@@ -35,6 +35,7 @@ def login_req(request: HttpRequest):
         return HttpResponseBadRequest()
     
     a = json.loads(request.body)
+    print(a, User.objects.filter(phone=a["phone"]).count(), Card.objects.filter(taxilicence=a["taxilicence"]).count())
     
     user = None
     card = None
