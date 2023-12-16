@@ -17,6 +17,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_GET, require_POST
 from django.middleware.csrf import get_token
+from django.db.models import Max
+import json
 
 from NISTaxi.qr.qr_utils import *
 
@@ -33,11 +35,50 @@ def login_req(request: HttpRequest):
         return HttpResponseBadRequest()
     user = json.loads(request.body)
     
-    if User.objects.filter(phone=user["phone"], taxilicence=user["taxi_licence"]).exists():
-        csrf_token = get_token(request)
-        return HttpResponse(csrf_token)
-    else:
-        return HttpResponseForbidden()
+    a = json.loads(request.body)
+    
+    user = None
+    card = None
+    try:
+        user = User.objects.get(phone=a["phone"], taxilicence=a["taxilicence"])
+        card = Card.objects.get(taxilicence=user.taxilicence)
+    except (User.DoesNotExist, Card.DoesNotExist):
+        if User.objects.filter(phone=a["phone"]).count() > 0:
+            return HttpResponseForbidden("User with same phone exist, but licences doesn't match")
+        if Card.objects.filter(taxilicence=a["taxilicence"]).count() > 0:
+            return HttpResponseForbidden("User with same taxilicene exist, but phones doesn't match")
+        user = User()
+        card = Card()
+        user.taxilicence = a["taxilicence"]
+        user.phone = a["phone"]
+
+        card.taxilicence = user
+        tmp = Card.objects.aggregate(Max("number"))
+        tmp = tmp['number__max']
+        if tmp is None:
+            tmp = 7824723600000000
+        else:
+            tmp = int(tmp)
+        card.number = str(tmp + 1)
+        card.discount = 0
+        card.points = 0
+        card.balance = 0
+
+        user.save()
+        card.save()
+    
+    
+    csrf_token = get_token(request)
+    ret = json.dumps({
+        "csrftoken" : csrf_token,
+        "number": card.number,
+        "taxilicence": card.taxilicence.taxilicence,
+        "discount": card.discount,
+        "points": card.points,
+        "balance": card.balance,
+        "qrcode": card.qrcode,
+    })
+    return HttpResponse(ret)
 
 
 #@csrf_protect
