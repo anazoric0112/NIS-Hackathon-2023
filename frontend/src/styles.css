@@ -6,21 +6,29 @@
     --yellow2: rgb(196, 172, 40);
 
     --yellow4: rgb(112, 97, 9);
-    --bg_blue: rgb(40, 90, 138);
+    --bg_blue: rgba(0, 54, 71, 0.5);
     --shadow_blue: rgb(24, 61, 95);
 
     --error: rgb(255, 157, 101);
 }
 body{
-    background-color: var(--bg-yellow);
-    font-size: larger
-}
-.title{
-    color:rgb(40, 90, 138)
+    /* background-color: var(--bg-yellow); */
+    /* background-image: image-set("assets/taxi6.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    font-size: larger;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("assets/taxi5.jpg");
+    background-size: cover;
+    filter: brightness(100%);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
+
 .center-content{
-    border-radius: 3px;
+    border-radius: 15px;
     margin-top: 5%;
     padding: 5%;
     padding-top: 2%;
@@ -29,7 +37,8 @@ body{
     justify-content: center;
     align-items: center;
     background-color: var(--bg_blue);
-    color: var(--yellow1)
+    color: var(--yellow1);
+    /* background-image: image-set("assets/taxi1.jpg"); */
 }
 
 .input-field{
@@ -45,7 +54,6 @@ body{
 .input-field::placeholder{
     color: var(--yellow2);
 }
-
 .input-field:active{
     border: 0;
     background-color: white !important;
@@ -56,9 +64,6 @@ body{
 
 }
 
-.error{
-    color: var(--error);
-}
 
 .mybutton{
     border-radius: 3px;
@@ -91,6 +96,10 @@ body{
     border: 0;
     box-shadow: 5px 5px 5px 0  var(--shadow_blue)
 }
+
 .info{
     font-size: medium;
+}
+.error{
+    color: var(--error);
 }

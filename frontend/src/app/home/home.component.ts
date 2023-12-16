@@ -26,17 +26,16 @@ export class HomeComponent implements OnInit {
   }
 
   showCard: boolean = false;
+  showShare: boolean = false;
   imgSource: string = "";
   card: Card = new Card();
 
 
   toCard() {
-
     this.showCard = !this.showCard;
   }
   toShare() {
-    this.showCard = false;
-    this.router.navigate(["recommend"]);
+    this.showShare = !this.showShare;
   }
 
 }
