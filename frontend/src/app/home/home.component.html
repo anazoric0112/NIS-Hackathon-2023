@@ -9,7 +9,8 @@
     <br>
     <br>
 </div>
-<button class="myhomebutton" (click)="showQR()">{{cardbuttontext}}</button>
+<button *ngIf="showCard" class="myhomebutton" (click)="showQR()">Hide my card</button>
+<button *ngIf="!showCard" class="myhomebutton" (click)="showQR()">Show my card</button>
 <br><br><br>
 <div *ngIf="showShare">
     <br>

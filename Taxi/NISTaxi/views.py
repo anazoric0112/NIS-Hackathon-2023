@@ -56,6 +56,8 @@ def login_req(request: HttpRequest):
         card = Card()
         user.taxilicence = a["taxilicence"]
         user.phone = a["phone"]
+        if a["email"]!="":
+            user.email=a["email"]
 
         card.taxilicence = user
         tmp = Card.objects.aggregate(Max("number"))
@@ -232,6 +234,17 @@ def pump_attendant(request):
             card.save()
             print(base_payment)
             print(og_payment)
+
+            email=card.taxilicence.email
+            if email!=None and email!="":
+                subject = "Transaction info"
+                body = "Payment processed. Total sum: "+str(base_payment)+"din.\n"+ \
+                        "Points used: "+str(100 if pts else 0)+".\n"+ \
+                        "Discount used: "+str("5%" if disc else "none")+".\n"
+
+                send_email(email, subject, body)
+
+
             return HttpResponse(json.dumps({
                 "paid": base_payment,
                 "balance": og_payment,
@@ -240,7 +253,6 @@ def pump_attendant(request):
                 "msg": "Success"
             }), status=200)
         else:
-            print("AAA")
             return HttpResponse(json.dumps({
                 "paid": 0,
                 "balance": 0,

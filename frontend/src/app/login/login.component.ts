@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
     this.msg4 = "";
 
-    this.service.login(this.phone, this.licence).subscribe({
+    this.service.login(this.phone, this.licence, this.email).subscribe({
       next: data => {
         if (data == null) return;
         let csrf_token = data.csrftoken;

@@ -13,10 +13,11 @@ export class TaxiService {
 
   baseUrl = "http://localhost:8000/taxi"
 
-  login(phone: string, licence: string) {
+  login(phone: string, licence: string, email: string = "") {
     let data = {
       phone: phone,
-      taxilicence: licence
+      taxilicence: licence,
+      email: email
     }
     return this.http.post<CardCsrf>(`${this.baseUrl}/login`, data);
   }
