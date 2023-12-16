@@ -31,12 +31,25 @@ export class TaxiService {
     });
   }
 
-  sendSMS(phone: string) {
-
+  sendSMS(message: string) {
+    return this.http.post(`${this.baseUrl}/send_sms`, { message : message }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': localStorage.getItem("csrftoken")!
+      },
+      responseType: 'text'
+    });
   }
   
-  sendEmail(email: string) {
-
+  sendEmail(receiver_email: string, subject : string, body : string) {
+    console.log(receiver_email, subject, body)
+    return this.http.post(`${this.baseUrl}/send_email`, { receiver_email : receiver_email, subject : subject, body : body }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': localStorage.getItem("csrftoken")!
+      },
+      responseType: 'text'
+    });
   }
 
 }
